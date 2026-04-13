@@ -3,6 +3,17 @@
 In this workshop, we'll demo TinyML concepts by using python to approximate a sine wave, which will then be used to control an LED. The end result will be an LED that appears to be "breathing".
 Due to the hardware resistrictions on the Arduino Nano, we will not use a TensorFlow library. However, we will still use TinyML conceptual ideas, such as supervised regression via a feedforward nerual network (which we demo through the sine function)
 
+# BUILDING THE CIRCUIT
+1) Build the circuit according to the diagram provided
+
+
+
+# MAKE ARDUINO SKETCH
+1) Open up a new sketch and click "save as"
+2) Select a memorable file name
+3) MAKE SURE TO REMEMBER WHERE YOUR ARDUINO FILE IS SAVED 
+4) That is all for now -- we will come back to this sketch later AFTER we generate/train some data first
+
 # CODE FOR GENERATING AND TRAINING DATA ON GOOGLE COLAB
 
 1) Open new file on google colab
@@ -139,6 +150,76 @@ print(header[:500], "...")
 
 files.download("weights.h")   # triggers browser download immediately
 ```
+At this point a file "weights.h" should download onto your computer.
 
+# UPLOADED TRAINED DATA ONTO THE ARDUINO SKETCH
+1) Take the "weights.h" file and move it into the same folder where your arduino sketch file is stored.
+2) Copy and past this code onto the Arduino sketch
+```
+#include "weights.h"
 
+const int LED_PIN    = 9;
+const float TWO_PI_F = 6.2831853f;
+const int   H        = 16;   // must match HIDDEN in Python
 
+float x_val = 0.0f;
+
+// ── activations ─────────────────────────────────────────────
+inline float relu(float v) { return v > 0.0f ? v : 0.0f; }
+
+// ── dense layer: out[j] = activation(Σ in[i]*W[i*cols+j] + b[j]) ──
+void dense(const float* in,  int in_sz,
+           const float* W,
+           const float* b,   int out_sz,
+           float*       out,
+           bool         apply_relu) {
+  for (int j = 0; j < out_sz; j++) {
+    float acc = b[j];
+    for (int i = 0; i < in_sz; i++)
+      acc += in[i] * W[i * out_sz + j];
+    out[j] = apply_relu ? relu(acc) : acc;
+  }
+}
+
+// ── full forward pass ────────────────────────────────────────
+float infer(float x_raw) {
+  // Normalize exactly as Python did
+  float x_norm = (x_raw - X_MIN) / (X_MAX - X_MIN);
+
+  float h1[H], h2[H], out[1];
+  float inp[1] = { x_norm };
+
+  dense(inp, 1,  W1, b1, H, h1, true);
+  dense(h1,  H,  W2, b2, H, h2, true);
+  dense(h2,  H,  W3, b3, 1, out, false);
+
+  return out[0];
+}
+
+// ── setup / loop ─────────────────────────────────────────────
+void setup() {
+  pinMode(LED_PIN, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  float y_val    = infer(x_val);
+  int brightness = (int)((y_val + 1.0f) / 2.0f * 255.0f);
+  analogWrite(LED_PIN, constrain(brightness, 0, 255));
+
+  Serial.println(y_val);   // remove once verified
+
+  x_val += 0.02f;
+  if (x_val >= TWO_PI_F) x_val = 0.0f;
+  delay(20);
+} 
+```
+3) Make sure the correct board/port is selected
+4) Verify and upload code
+5) The LED should appear to breathe! This is due to the oscillatory shape of the sine wave function from earlier.
+
+This is the end of the workshop itself, but if you're interested in learning more about TinyML here are some topic areas to explore :)
+
+# EXTRA: TOPIC AREAS IN TINYML
+1) TensorFlow/TensorFlow Lite
+2) Applications/Projects with TinyML but on more powerful boards such as the ESP32 or Raspberry Pi
