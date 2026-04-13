@@ -5,6 +5,7 @@ Due to the hardware resistrictions on the Arduino Nano, we will not use a Tensor
 
 # BUILDING THE CIRCUIT
 1) Build the circuit according to the diagram provided
+<img width="993" height="613" alt="image" src="https://github.com/user-attachments/assets/67122063-0cab-4c5c-a7a2-8389425f1e06" />
 
 
 
