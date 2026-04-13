@@ -3,19 +3,19 @@
 In this workshop, we'll demo TinyML concepts by using python to approximate a sine wave, which will then be used to control an LED. The end result will be an LED that appears to be "breathing".
 Due to the hardware resistrictions on the Arduino Nano, we will not use a TensorFlow library. However, we will still use TinyML conceptual ideas, such as supervised regression via a feedforward nerual network (which we demo through the sine function)
 
-# BUILDING THE CIRCUIT
+# 1) BUILDING THE CIRCUIT
 1) Build the circuit according to the diagram provided
 <img width="993" height="613" alt="image" src="https://github.com/user-attachments/assets/67122063-0cab-4c5c-a7a2-8389425f1e06" />
 
 
 
-# MAKE ARDUINO SKETCH
+# 2) MAKE ARDUINO SKETCH
 1) Open up a new sketch and click "save as"
 2) Select a memorable file name
 3) MAKE SURE TO REMEMBER WHERE YOUR ARDUINO FILE IS SAVED 
 4) That is all for now -- we will come back to this sketch later AFTER we generate/train some data first
 
-# CODE FOR GENERATING AND TRAINING DATA ON GOOGLE COLAB
+# 3) CODE FOR GENERATING AND TRAINING DATA ON GOOGLE COLAB
 
 1) Open new file on google colab
 2) Copy and paste code into the google colab file:
@@ -153,7 +153,7 @@ files.download("weights.h")   # triggers browser download immediately
 ```
 At this point a file "weights.h" should download onto your computer.
 
-# UPLOADED TRAINED DATA ONTO THE ARDUINO SKETCH
+# 4) UPLOADED TRAINED DATA ONTO THE ARDUINO SKETCH
 1) Take the "weights.h" file and move it into the same folder where your arduino sketch file is stored.
 2) Copy and past this code onto the Arduino sketch
 ```
