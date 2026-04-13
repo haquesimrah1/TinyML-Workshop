@@ -4,3 +4,7 @@ In this workshop, we'll demo TinyML concepts by using python to approximate a si
 Due to the hardware resistrictions on the Arduino Nano, we will not use a TensorFlow library. However, we will still use TinyML conceptual ideas, such as supervised regression via a feedforward nerual network (which we demo through the sine function)
 
 # CODE FOR GENERATING AND TRAINING DATA ON GOOGLE COLAB
+
+   ```
+haiii
+   ```
