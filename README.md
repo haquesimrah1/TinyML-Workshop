@@ -219,8 +219,9 @@ void loop() {
 4) Verify and upload code
 5) The LED should appear to breathe! This is due to the oscillatory shape of the sine wave function from earlier.
 
-This is the end of the workshop itself, but if you're interested in learning more about TinyML here are some topic areas to explore :)
+This is the end of the workshop itself, but if you're interested in learning more about TinyML I've included some topic areas to continue learning about TinyML.
 
-# EXTRA: TOPIC AREAS IN TINYML
+# EXTRA: Cool Topic Areas To Explore In TinyML If You're Interested :)
 1) TensorFlow/TensorFlow Lite
-2) Applications/Projects with TinyML but on more powerful boards such as the ESP32 or Raspberry Pi
+2) Applications/Projects with TinyML but on more powerful boards such as the ESP32, Raspberry Pi, Arduino Nano 33 BLE Sense
+3) Trying more complex ML projects (RBG identifier, Gesture Recognition, Sound Classifcation, etc.) 
